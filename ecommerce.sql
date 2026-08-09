@@ -1,7 +1,6 @@
 -- Active: 1785766796380@@127.0.0.1@5432@ecommerce_db
 -- Task part1: Database Creation
 CREATE DATABASE ecommerce_db;
-
 CREATE TABLE customers(
     customer_id INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -63,11 +62,11 @@ VALUES
     (6, 'Coffee Beans', 800, 50, 3),
     (7, 'Smartwatches', 3500, 80, 1),
     (8, 'Sneakers', 3000, 50, 2),
-    (9, 'DIY Craft Kits', 700, 90, 5),
+    (9, 'DIY Craft Kits', 700, 8, 5),
     (10, 'Chocolate Cookies', 120, 70, 3),
     (11, 'Earphone', 1200, 45, 1),
     (12, 'Quaker Oats', 450, 30, 3),
-    (13, 'Resistance Band Sets', 3600, 15, 4);
+    (13, 'Resistance Band Sets', 3600, 5, 4);
 
 INSERT INTO orders
     (order_id, customer_id, order_date, total_amount)
