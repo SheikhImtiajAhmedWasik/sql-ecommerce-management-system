@@ -39,7 +39,9 @@ VALUES
     (2, 'Ishan', 'ishan@mail.com', '+880 1812121213', 'Dhaka'),
     (3, 'Ringkon', 'kon@mail.com', '+880 1812121214', 'Rajshahi'),
     (4, 'Radhanath', 'nath@mail.com', '+880 1812121215', 'Chattogram'),
-    (5, 'Masum', 'masum@mail.com', '+880 1812121216', 'Khulna');
+    (5, 'Masum', 'masum@mail.com', '+880 1812121216', 'Khulna'),
+    (6, 'Rakib', 'rakib@mail.com', '+880 1812121217', 'Dhaka'),
+    (7, 'Akib', 'akib@mail.com', '+880 1812121218', 'Dhaka');
 
 INSERT INTO categories
 VALUES
@@ -62,7 +64,10 @@ VALUES
     (7, 'Smartwatches', 3500, 80, 1),
     (8, 'Sneakers', 3000, 50, 2),
     (9, 'DIY Craft Kits', 700, 90, 5),
-    (10, 'Resistance Band Sets', 3600, 15, 4);
+    (10, 'Chocolate Cookies', 120, 70, 3),
+    (11, 'Earphone', 1200, 45, 1),
+    (12, 'Quaker Oats', 450, 30, 3),
+    (13, 'Resistance Band Sets', 3600, 15, 4);
 
 INSERT INTO orders
     (order_id, customer_id, order_date, total_amount)
@@ -70,11 +75,12 @@ VALUES
     (1, 1, '2026-07-15', 9000),
     (2, 3, '2026-07-16', 1800),
     (3, 2, '2026-07-18', 7400),
-    (4, 4, '2026-07-19', 3000),
-    (5, 3, '2026-07-20', 6500),
-    (6, 1, '2026-07-22', 3000),
-    (7, 4, '2026-07-23', 1800),
-    (8, 3, '2026-07-25', 6000);
+    (4, 6, '2026-07-18', 8200),
+    (5, 4, '2026-07-19', 3000),
+    (6, 3, '2026-07-20', 6500),
+    (7, 1, '2026-07-22', 3000),
+    (8, 4, '2026-07-23', 1800),
+    (9, 3, '2026-07-25', 6000);
 
 
 -- Task part 3: Update Data
@@ -136,7 +142,11 @@ ORDER BY name ASC;
 SELECT * FROM products
 ORDER BY product_id
 LIMIT 5;
--- 9. Show the first 5 products
+-- 8. Show the first 5 products
+
+SELECT COUNT(customer_id) AS total_customer
+FROM  customers
+-- 9. Count the total number of customers
 
 SELECT AVG(price) AS "Average product price"
 FROM products;
@@ -212,5 +222,48 @@ WHERE price BETWEEN 500 AND 3000;
 
 
 -- Task part 9: Bonus Challenge
+SELECT * 
+FROM products
+ORDER BY price DESC
+LIMIT 1;
+-- 1. Highest price product...
+
+SELECT 
+    customers.customer_id,
+    customers.name,
+    orders.order_id,
+    orders.order_date,
+    orders.total_amount
+FROM customers
+JOIN orders
+ON customers.customer_id = orders.customer_id
+ORDER BY orders.total_amount DESC
+LIMIT 1;
+-- 2. Largest order by customer...
+
+SELECT categories.category_name, COUNT(category_name)
+FROM categories
+JOIN products
+ON categories.category_id = products.category_id
+GROUP BY categories.category_name
+ORDER BY COUNT(categories.category_name);
+-- 3. products belong to each category...
+
+SELECT categories.category_name, COUNT(category_name)
+FROM categories
+JOIN products
+ON categories.category_id = products.category_id
+GROUP BY categories.category_name
+ORDER BY COUNT(categories.category_name) DESC
+LIMIT 1;
+-- 4. Category with most products
+
+SELECT customers.name, COUNT(customers.customer_id) 
+FROM customers
+JOIN orders
+ON customers.customer_id = orders.customer_id
+GROUP BY customers.customer_id
+HAVING COUNT(customers.customer_id) > 0;
+-- 5. List all customers who have placed at least one order.
 
 
